@@ -8,7 +8,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-@vite('resources/css/app.css')
+Vite('resources/css/app.css')
     <nav class="flex justify-between items-center bg-emerald-100 p-4">
         <div>
             <a href="{{ route('d') }}" class="mr-4">Dashboard</a> 

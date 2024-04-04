@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('code');
             $table->unsignedBigInteger('idus'); 
             $table->unsignedBigInteger('idua'); 
-            $table->boolean('statu'); 
+            $table->boolean('statu');
             $table->timestamps();
-              
+            
             $table->foreign('idus')->references('id')->on('users');
             $table->foreign('idua')->references('id')->on('users');
         });

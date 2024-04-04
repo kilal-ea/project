@@ -24,7 +24,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->boolean('regulation'); 
             $table->boolean('status'); 
-            $table->string('Payment_type'); 
+            $table->unsignedBigInteger('id_Payment_type'); //fk/add table Payment_type (nom,prix,datefin,date.now())
             $table->timestamps();
             
             $table->foreign('idp')->references('id')->on('products');

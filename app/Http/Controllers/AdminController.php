@@ -52,16 +52,47 @@ class AdminController extends Controller
     }
 
 // View for adding products
+public function addprov(Request $req)
+{
+    if (Session::has('user')) {
+        $user = Session::get('user');
+        
+        if ($user->roles == 'admin') {
+            $cat = DB::table('categorys')->get();
+            return view('admin.addpro', ['cat' => $cat]);
+        }
+    }
+
+    return redirect()->back();
+}
+
+//  adding products
 public function addpro(Request $req)
 {
     $user = Session::get('user');
     
     if (Session::has('user') && $user->roles == 'admin') {
-        return view('admin.addpro');
+        
+        $req->validate([
+            'name' => 'required|string',
+            'nbpc' => 'required|integer',
+            'category' => 'required|exists:categories,id' 
+        ]);
+
+        DB::table('Products')->insert([
+            'name' => $req->input('name'),
+            'nbpc' => $req->input('nbpc'),
+            'category_id' => $req->input('category'),
+            'created_at' => now(),
+        ]);
+
+        return redirect()->route('success.route');
     } else {
         return redirect()->back();
     }
 }
+
+
 
     // Adding a new user
     public function singup(Request $req)

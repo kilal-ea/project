@@ -21,7 +21,7 @@ return new class extends Migration
             $table->Integer('quantity_piece');
             $table->timestamps();
             
-            $table->foreign('idst')->references('id')->on('bons_sale');
+            $table->foreign('idst')->references('id')->on('stocks');
             $table->foreign('idp')->references('id')->on('products');
         });
     }

@@ -21,11 +21,13 @@ return new class extends Migration
             $table->unsignedBigInteger('idp');
             $table->decimal('price');
             $table->boolean('statu'); 
+            $table->unsignedBigInteger('iduserupdate');// ila bdl fih chwahd fk user
             $table->timestamps();
             
             $table->foreign('idp')->references('id')->on('products');
             $table->foreign('idus')->references('id')->on('users');
             $table->foreign('idua')->references('id')->on('users');
+            $table->foreign('iduserupdate')->references('id')->on('users');
         });
     }
 
