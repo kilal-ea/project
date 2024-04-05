@@ -1,7 +1,25 @@
 @extends('admin.user')
 
 @section('user')
-    <div >
+    <div>
+       <form action="{{ route('sho') }}" method='post'>
+        @csrf
+            <select name='role' class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <option value="" disabled selected>Select roles</option>
+                <option value='admin'>Admin</option>
+                <option value='assistance'>Assistance</option>
+                <option value='vendeur'>Vendeur</option>
+                <option value='magasiniere'>Magasinière</option>
+            </select>
+            <select name='cec'>
+                <option value="" disabled selected>Select sectors</option>
+                @foreach($ceq as $sector)
+                    <option value="{{$sector->name}}">{{$sector->name}}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+
         <table class="min-w-full divide-y w-full divide-gray-200">
             <thead class="bg-gray-300">
                 <tr>
@@ -20,7 +38,9 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
+            
                 @foreach($users as $user)
+                
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ $user->name }}

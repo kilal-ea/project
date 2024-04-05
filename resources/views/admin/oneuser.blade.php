@@ -2,7 +2,7 @@
 
 @section('user')
     <div class="mt-4">
-
+        
         <button type="submit" onclick="window.location='{{ URL::previous() }}'" class="bg-green-500 mb-5 p-2 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-2xl">
             Retour
         </button>

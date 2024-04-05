@@ -119,17 +119,55 @@ public function addpro(Request $req)
     }
 
     // Showing all users
-    public function showuser(Request $req)
-    {
-        $user = Session::get('user');
-        
-        if (Session::has('user') && $user->roles == 'admin') {
-            $users = DB::table('users')->get();
-            return view('admin.showuser', ['users' => $users]);
+    public function showuser(Request $request)
+{
+    $user = $request->session()->get('user');
+    
+    if ($request->method() == 'POST') {
+        // Handle form submissions for filtering users
+        $role = $request->input('role');
+        $cec = $request->input('cec'); // Corrected variable name
+    
+        // Build your query based on the selected filters
+        $query = DB::table('users')
+            ->join('citys', 'users.idcity', '=', 'citys.id')
+            ->join('sectors', 'citys.idsec', '=', 'sectors.id')
+            ->select('users.id', 'users.name', 'users.email', 'users.roles', 'sectors.name as sectors');
+    
+        // Apply filters if they are selected
+        if ($role) {
+            $query->where('users.roles', $role);
+        }
+        if ($cec) {
+            $query->where('sectors.name', $cec); 
+        }
+        if ($cec && $role) {
+            $query->where('sectors.name', $cec )->where( 'users.roles', $role); 
+        }
+    
+        // Execute the query
+        $users = $query->get();
+    
+        // Retrieve all sectors for the dropdown
+        $ceq = DB::table('sectors')->get();
+    
+        return view('admin.showuser', ['users' => $users, 'ceq' => $ceq]);
+    }
+     else {
+        if ($request->session()->has('user') && $user->roles == 'admin') {
+            $users = DB::table('users')
+                ->join('citys', 'users.idcity', '=', 'citys.id')
+                ->join('sectors', 'citys.idsec', '=', 'sectors.id')
+                ->select('users.id', 'users.name', 'users.email', 'users.roles', 'sectors.name as sectors')
+                ->get();
+            $ceq = DB::table('sectors')->get();
+            return view('admin.showuser', ['users' => $users, 'ceq' => $ceq]);
         } else {
             return redirect()->back();
         }
     }
+}
+
 
     // View for deleting a user
     public function userdeletev(Request $req)

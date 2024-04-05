@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/clients', [AdminController::class, 'clientsv'])->name('clientsv');
     Route::get('/product/all', [AdminController::class, 'productsv'])->name('prov');
     Route::get('/show/users', [AdminController::class, 'showuser'])->name('showuser');
+    Route::post('/show/users', [AdminController::class, 'showuser'])->name('sho');
+
     Route::post('/user/{user}', [AdminController::class, 'moreuser'])->name('moreuser');
     Route::get('/change/pass/{id}', [AdminController::class, 'pass'])->name('pass');
     Route::post('/password', [AdminController::class, 'changepass'])->name('changepass');
