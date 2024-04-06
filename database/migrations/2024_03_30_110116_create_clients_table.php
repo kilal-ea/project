@@ -20,7 +20,7 @@ return new class extends Migration
                 $table->string('phone');
                 $table->unsignedBigInteger('idS');
                 $table->unsignedBigInteger('idCity');
-                $table->boolean('status');
+                $table->boolean('status'); // number(0.1.2)
                 $table->timestamps();
                 $table->foreign('idS')->references('id')->on('users');
                 $table->foreign('idCity')->references('id')->on('citys');

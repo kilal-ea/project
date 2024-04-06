@@ -2,10 +2,10 @@
 
 @section('user')
     <div class="mt-4">
-        
-        <button type="submit" onclick="window.location='{{ URL::previous() }}'" class="bg-green-500 mb-5 p-2 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-2xl">
+        <a href='/show/users'>
+        <button type="submit" class="bg-green-500 mb-5 p-2 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-2xl">
             Retour
-        </button>
+        </button></a>
         
         <p class="text-lg font-bold">Nom: {{$user->name}}</p>
         <p class="text-gray-600">Code: {{$user->id}}</p>
@@ -23,6 +23,11 @@
             </button>
         @endif
     </div>
+    <form method="POST" action="{{ route('delete', $user->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-primary">supprimer</button>
+                        </form>
     <div class='w-full'>
         @yield('oneuser')
     </div>

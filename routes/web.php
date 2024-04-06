@@ -18,8 +18,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/addclient', [AdminController::class, 'addclientsv'])->name('addclients');
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('delete');
     Route::post('/client/{client}', [AdminController::class, 'addclients'])->name('addc');
-    Route::get('/clients', [AdminController::class, 'clientsv'])->name('clientsv');
+    Route::get('/clients', [AdminController::class, 'clients'])->name('clients');
+    Route::get('/clients/deleted', [AdminController::class, 'deletedlientsv'])->name('deletedclients');
+    Route::post('/client/deleted/{client}', [AdminController::class, 'deletclient'])->name('delet');
     Route::get('/product/all', [AdminController::class, 'productsv'])->name('prov');
+    Route::post('/product/ll', [AdminController::class, 'productsv'])->name('productFilter');
+
     Route::get('/show/users', [AdminController::class, 'showuser'])->name('showuser');
     Route::post('/show/users', [AdminController::class, 'showuser'])->name('sho');
 
@@ -33,10 +37,19 @@ Route::group(['middleware' => 'auth'], function () {
     
 });
 
+    Route::get('/client', [AdminController::class, 'clientsv'])->name('clientsv');
 
     Route::get('/', [loginController::class, 'v'])->name('home');
     Route::get('/users', [AdminController::class, 'user'])->name('user');
     Route::get('/add/user', [AdminController::class, 'sv'])->name('add');
-    Route::post('/login', [loginController::class, 'login'])->name('login');
+    Route::post('/conec', [loginController::class, 'login'])->name('con');
+    Route::get('/login', function(){
+        return View('login');
+    } 
+    )->name('login');
     Route::post('/added', [AdminController::class, 'singup'])->name('singup');
 
+    Route::fallback(function () {
+        return back()->with('error', 'The requested resource could not be found.');
+    });
+    

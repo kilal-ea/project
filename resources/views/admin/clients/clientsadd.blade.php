@@ -1,7 +1,8 @@
-@extends('dashboard.adash')
+@extends('admin.clients.client')
 
-@section('user')
-    <div class="p-6">
+@section('cli')
+    
+<div class="p-6">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>

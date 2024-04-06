@@ -1,38 +1,42 @@
-@extends('dashboard.adash')
+@extends('admin.clients.client')
 
-@section('user')
-    <div >
-        <table class="min-w-full divide-y w-full divide-gray-200">
-            <thead class="bg-gray-300">
+@section('cli')
+    
+<div class="p-6">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        nom
+                        name
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         email
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        role
+                        name v
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        delete
+                        accepter
                     </th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                @foreach($users as $user)
+                @foreach($clients as $client)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $user->name }}
+                        {{ $client->name }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $user->email }}
+                        {{ $client->phone }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $user->roles }}
+                        {{ $client->username }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                       
+                        <form method="POST" action="{{ route('addc', $client->id) }}">
+                            @csrf
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">added</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

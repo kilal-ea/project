@@ -12,7 +12,7 @@
             <h1 class="text-3xl font-bold mb-4">Login</h1>
         </duv>
         
-        <form action="{{ route('login') }}" method="post">
+        <form action="{{ route('con') }}" method="post">
             @csrf 
             <div class="mb-10">
                 <label for="email" class="block text-sm font-semibold">Email</label>

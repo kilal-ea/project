@@ -14,10 +14,9 @@ class loginController extends Controller
         $user = session()->get('user');
         
         if ($user) {
-            
             return redirect()->back();
         } else {
-            return view('login');
+            return redirect()->route('logout');
         }
     }
     public function login(Request $req)

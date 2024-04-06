@@ -21,10 +21,11 @@ class DashController extends Controller
                 case 'magasiniere':
                     return view('dashboard.mdash', ['user' => $user]);
                 default:
-                    return redirect()->route('home');
+                    return redirect()->route('lo');
             }
         } else {
-            return redirect()->route('home');
+            auth()->logout();
+            return redirect()->route('logout')->with('error', 'Your session has expired. Please login again.');
         }
     }
 }
