@@ -422,6 +422,7 @@ class AdminController extends Controller
                      ->join('users', 'clients.ids', '=', 'users.id')
                      ->select('clients.id', 'clients.name', 'clients.phone', 'users.name as username')
                      ->get();
+                     
                  return view('admin.clients.clientsadd', ['clients' => $clients]);
              } else {
                  return redirect()->back();
@@ -464,7 +465,7 @@ class AdminController extends Controller
                      ->join('citys', 'clients.idCity', '=', 'citys.id')
                      ->select('clients.id', 'clients.name', 'clients.phone', 'users.name as username', 'citys.name as city')
                      ->get();
-                    
+                   
                 return view('admin.clients.clientsv', ['clients' => $clients]);
             } else {
                  return redirect()->back();
@@ -530,5 +531,84 @@ class AdminController extends Controller
              return redirect()->route('logout')->with('error', 'Your session has expired. Please login again.');
          }
      }
+
+     // View for managing sales
+    public function sales(Request $req)
+    { 
+        $user = Session::get('user');
+        
+        if (Session::has('user')) {
+            if ($user->roles == 'admin') {
+                return view('admin.sales.sales');
+            } else {
+                return redirect()->back();
+            }
+        } else {
+            auth()->logout();
+            return redirect()->route('logout')->with('error', 'Your session has expired. Please login again.');
+        }
+    }
+     // View for all sales
+     public function allsales()
+     {
+         $user = Session::get('user');
+         
+         if (Session::has('user')) {
+             if ($user->roles == 'admin') {
+                $sales = DB::table('sales')
+                    ->join('users', 'sales.ids', '=', 'users.id')
+                    ->join('clients', 'sales.idc', '=', 'clients.id')
+                    ->select('sales.id', 'sales.code', 'sales.priceTotal', 'sales.created_at', 'clients.name as cname', 'users.name as uname')
+                    ->get();
+
+                 return view('admin.sales.salesv', ['sales' => $sales]);
+             } else {
+                 return redirect()->back();
+             }
+         } else {
+             auth()->logout();
+             return redirect()->route('logout')->with('error', 'Your session has expired. Please login again.');
+         }
+     }
+     //view bon sales
+     public function bonsales(request $request)
+     {
+         $user = Session::get('user');
+         
+         if (Session::has('user')  ) {
+             if ($user->roles == 'admin') {
+                 $code = $request->route('code');
+                 $bon2 = DB::table('bons_sale')
+                        ->where('code', $code)
+                        ->join('users', 'bons_sale.idus', '=', 'users.id')
+                        ->join('clients', 'bons_sale.idc', '=', 'clients.id')
+                        ->join('products', 'bons_sale.idp', '=', 'products.id')
+                        ->join('categorys', 'products.category_id', '=', 'categorys.id')
+                        ->select('bons_sale.id','bons_sale.quantity_piece', 'bons_sale.quantity_Carton','bons_sale.price', 'products.name as products_name','products.piece_in_carton as piece_in_carton', 'categorys.name as categorys_name')
+                        ->get();
+
+                 $bon1 = DB::table('bons_sale')
+                     ->where('code', $code)
+                     ->join('users', 'bons_sale.idus', '=', 'users.id')
+                     ->join('clients', 'bons_sale.idc', '=', 'clients.id')
+                     ->select('bons_sale.code', 'users.name as user_name', 'clients.name as clients_name',)
+                     ->distinct()
+                     ->get();
+                $totalprix = 0;
+
+                foreach ($bon2 as $key => $item) {
+                         $totalprix += ((($item->quantity_Carton*$item->piece_in_carton)+$item->piece_in_carton)*$item->price);
+                     }
+                
+                     return view('admin.sales.bonsales',['bon1'=>$bon1 , 'bon2'=>$bon2 , 'totalprix'=>$totalprix]);
+             } else {
+                 return redirect()->back();
+             }
+         } else {
+             auth()->logout();
+             return redirect()->route('logout')->with('error', 'Your session has expired. Please login again.');
+         }
+     }
+ 
     
 }

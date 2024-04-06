@@ -19,6 +19,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('delete');
     Route::post('/client/{client}', [AdminController::class, 'addclients'])->name('addc');
     Route::get('/clients', [AdminController::class, 'clients'])->name('clients');
+    Route::get('/sales/all', [AdminController::class, 'allsales'])->name('allsales');
+    Route::post('/bone/{code}', [AdminController::class, 'bonsales'])->name('bonsale');
     Route::get('/clients/deleted', [AdminController::class, 'deletedlientsv'])->name('deletedclients');
     Route::post('/client/deleted/{client}', [AdminController::class, 'deletclient'])->name('delet');
     Route::get('/product/all', [AdminController::class, 'productsv'])->name('prov');
@@ -38,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
     Route::get('/client', [AdminController::class, 'clientsv'])->name('clientsv');
-
+    Route::get('/sales', [AdminController::class, 'sales'])->name('sales');
     Route::get('/', [loginController::class, 'v'])->name('home');
     Route::get('/users', [AdminController::class, 'user'])->name('user');
     Route::get('/add/user', [AdminController::class, 'sv'])->name('add');
