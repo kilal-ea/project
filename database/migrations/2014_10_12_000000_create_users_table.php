@@ -17,8 +17,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('roles');
             $table->string('password');
+            $table->integer('deleted');
+            $table->unsignedBigInteger('idcity'); 
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('idcity')->references('id')->on('citys'); 
+
+
         });
     }
 

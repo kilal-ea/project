@@ -2,10 +2,10 @@
 
 @section('content')
     <div style='display: flex'>
-        <div class='bg-emerald-500 w-1/5'>
+        <div class='bg-red-700 w-1/5'>
             <button onclick="window.location='{{ route('produits') }}'" class='  w-full py-5 font-semibold text-white border-b-4' style="font-family: Arial, sans-serif;">Product</button><br>
             <button onclick="window.location='{{route('user')}}'" class='  w-full py-5 font-semibold text-white border-b-4' style="font-family: Arial, sans-serif;">Users</button><br>
-            <button onclick="window.location='{{route('clientsv')}}'" class='  w-full py-5 font-semibold text-white border-b-4' style="font-family: Arial, sans-serif;">clietns</button><br>
+            <button onclick="window.location='{{route('clientsv')}}'" class='  w-full py-5 font-semibold text-white border-b-4' style="font-family: Arial, sans-serif;">clients</button><br>
             <button onclick="window.location='{{route('sales')}}'" class='  w-full py-5 font-semibold text-white border-b-4' style="font-family: Arial, sans-serif;">vente</button><br>
             <button onclick="window.location='#'" class='  w-full py-5 font-semibold text-white border-b-4' style="font-family: Arial, sans-serif;">tranfer</button><br>
             <button onclick="window.location='#'" class='  w-full py-5 font-semibold text-white border-b-4' style="font-family: Arial, sans-serif;">stock</button><br>

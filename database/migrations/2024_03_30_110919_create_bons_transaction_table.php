@@ -19,9 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idus'); 
             $table->unsignedBigInteger('idua');
             $table->unsignedBigInteger('idp');
-            $table->decimal('price');
             $table->boolean('statu'); 
-            $table->unsignedBigInteger('iduserupdate');// ila bdl fih chwahd fk user
             $table->timestamps();
             
             $table->foreign('idp')->references('id')->on('products');
